@@ -118,7 +118,20 @@ class Game extends FlxState
 	
 	override public function update():Void
 	{
-
+		// Updating score+hiscore
+		SPscore.text="SCORE: "+score;
+		SPhiscore.text="HI-SCORE: "+hiscore;
+		
+		if (enemies.countLiving()==0)
+		{
+			trace ("new Stage");
+		}
+		
+		if (score > hiscore)
+		{
+			hiscore=score;
+		}
+		
 		if (FlxG.keys.anyPressed(["A","LEFT"]))
 		{
 			// if the player get out of the screen show player in the other side.
@@ -173,6 +186,11 @@ class Game extends FlxState
 		//And make them shoot every time
 		enemies.forEach(shoot);
 		
+		
+		//---------------------------collisions
+		
+		enemies.forEach(enemyHit);
+		
 
 		super.update();
 	}	
@@ -199,7 +217,7 @@ class Game extends FlxState
 	{
 		tempo -= FlxG.elapsed;
 		
-		if (tempo <= -1)
+		if (tempo <= -1 && e.exists)
 		{	
 			//creating a shoot graphic.	
 			var tiro:FlxSprite = new FlxSprite(e.x+25,e.y+50);
@@ -224,6 +242,22 @@ class Game extends FlxState
 			fired=true;
 		}
 		
+		
+	}
+	
+	public function enemyHit(enemy:FlxSprite){
+		
+		
+		FlxG.collide(enemy, fire, dieEnemy);
+		
+		
+	} 
+	
+	public function dieEnemy(e:FlxSprite, fire:FlxSprite)
+	{
+		
+		e.kill();
+		score+=10;
 		
 	}
 	
