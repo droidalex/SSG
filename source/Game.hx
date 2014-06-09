@@ -317,7 +317,7 @@ stars.forEach(resetStars);
 			fired=true;
 		}
 		
-		
+		 
 	}
 	
 	public function enemyHit(enemy:FlxSprite){
