@@ -36,6 +36,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
+		className.set ("assets/enemies.png", __ASSET__assets_enemies_png);
+		type.set ("assets/enemies.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/boom.png", __ASSET__assets_boom_png);
+		type.set ("assets/boom.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/svg/enemy.svg", __ASSET__assets_svg_enemy_svg);
+		type.set ("assets/svg/enemy.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/svg/SSG.svg", __ASSET__assets_svg_ssg_svg);
+		type.set ("assets/svg/SSG.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/svg/boom.svg", __ASSET__assets_svg_boom_svg);
+		type.set ("assets/svg/boom.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/ssg.png", __ASSET__assets_ssg_png);
+		type.set ("assets/ssg.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/sounds/flixel.mp3", __ASSET__assets_sounds_flixel_mp3);
 		type.set ("assets/sounds/flixel.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
 		className.set ("assets/sounds/beep.mp3", __ASSET__assets_sounds_beep_mp3);
@@ -44,6 +56,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#elseif html5
 		
+		addExternal("assets/enemies.png", "image", "assets/enemies.png");
+		addExternal("assets/boom.png", "image", "assets/boom.png");
+		addExternal("assets/svg/enemy.svg", "text", "assets/svg/enemy.svg");
+		addExternal("assets/svg/SSG.svg", "text", "assets/svg/SSG.svg");
+		addExternal("assets/svg/boom.svg", "text", "assets/svg/boom.svg");
+		addExternal("assets/ssg.png", "image", "assets/ssg.png");
 		addExternal("assets/sounds/flixel.mp3", "music", "assets/sounds/flixel.mp3");
 		addExternal("assets/sounds/beep.mp3", "music", "assets/sounds/beep.mp3");
 		
@@ -53,6 +71,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var loadManifest = false;
+		
+		className.set ("assets/enemies.png", __ASSET__assets_enemies_png);
+		type.set ("assets/enemies.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		
+		className.set ("assets/boom.png", __ASSET__assets_boom_png);
+		type.set ("assets/boom.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		
+		className.set ("assets/svg/enemy.svg", __ASSET__assets_svg_enemy_svg);
+		type.set ("assets/svg/enemy.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		
+		className.set ("assets/svg/SSG.svg", __ASSET__assets_svg_ssg_svg);
+		type.set ("assets/svg/SSG.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		
+		className.set ("assets/svg/boom.svg", __ASSET__assets_svg_boom_svg);
+		type.set ("assets/svg/boom.svg", Reflect.field (AssetType, "text".toUpperCase ()));
+		
+		className.set ("assets/ssg.png", __ASSET__assets_ssg_png);
+		type.set ("assets/ssg.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		
 		className.set ("assets/sounds/flixel.mp3", __ASSET__assets_sounds_flixel_mp3);
 		type.set ("assets/sounds/flixel.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
@@ -642,6 +678,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if pixi
 #elseif flash
 
+@:keep class __ASSET__assets_enemies_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_boom_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_svg_enemy_svg extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_svg_ssg_svg extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_svg_boom_svg extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_ssg_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_sounds_flixel_mp3 extends flash.media.Sound { }
 @:keep class __ASSET__assets_sounds_beep_mp3 extends flash.media.Sound { }
 
@@ -652,9 +694,21 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
 #elseif (windows || mac || linux)
 
 
+@:bitmap("assets/enemies.png") class __ASSET__assets_enemies_png extends flash.display.BitmapData {}
+@:bitmap("assets/boom.png") class __ASSET__assets_boom_png extends flash.display.BitmapData {}
+@:file("assets/svg/enemy.svg") class __ASSET__assets_svg_enemy_svg extends flash.utils.ByteArray {}
+@:file("assets/svg/SSG.svg") class __ASSET__assets_svg_ssg_svg extends flash.utils.ByteArray {}
+@:file("assets/svg/boom.svg") class __ASSET__assets_svg_boom_svg extends flash.utils.ByteArray {}
+@:bitmap("assets/ssg.png") class __ASSET__assets_ssg_png extends flash.display.BitmapData {}
 @:sound("/usr/lib/haxe/lib/flixel/3,3,3/assets/sounds/flixel.mp3") class __ASSET__assets_sounds_flixel_mp3 extends flash.media.Sound {}
 @:sound("/usr/lib/haxe/lib/flixel/3,3,3/assets/sounds/beep.mp3") class __ASSET__assets_sounds_beep_mp3 extends flash.media.Sound {}
 
