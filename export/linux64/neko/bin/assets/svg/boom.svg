@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="31.983402"
+   height="31.97558"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="boom.svg">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3781"
+       x="-0.15482843"
+       width="1.3096569"
+       y="-0.15482843"
+       height="1.3096569"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="11.649844"
+         id="feGaussianBlur3783" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3785"
+       x="-0.12"
+       width="1.24"
+       y="-0.12"
+       height="1.24"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="9.0292284"
+         id="feGaussianBlur3787" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.4827489"
+     inkscape:cx="16.341997"
+     inkscape:cy="1.9531088"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="745"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-151.84015,-427.45668)">
+    <path
+       sodipodi:type="star"
+       style="fill:#ff0d00;fill-opacity:1;fill-rule:nonzero;stroke:#ccc9c9;stroke-width:0.1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3785)"
+       id="path2985"
+       sodipodi:sides="12"
+       sodipodi:cx="263.85635"
+       sodipodi:cy="347.39212"
+       sodipodi:r1="90.294083"
+       sodipodi:r2="44.153809"
+       sodipodi:arg1="1.0535089"
+       sodipodi:arg2="1.3153083"
+       inkscape:flatsided="false"
+       inkscape:rounded="-1.0408341e-17"
+       inkscape:randomized="0"
+       d="m 308.50897,425.87247 -33.49417,-35.75977 -11.72832,47.5717 -11.12692,-47.71595 -33.94287,35.33415 14.22178,-46.88669 -47.06247,13.62883 35.75977,-33.49417 -47.5717,-11.72832 47.71595,-11.12692 -35.33414,-33.94288 46.88669,14.22179 -13.62883,-47.06247 33.49417,35.75977 11.72832,-47.5717 11.12692,47.71595 33.94287,-35.33414 -14.22178,46.88668 47.06246,-13.62883 -35.75977,33.49417 47.57171,11.72832 -47.71596,11.12692 35.33415,33.94288 L 294.88014,378.81 z"
+       inkscape:transform-center-x="-0.44156715"
+       inkscape:transform-center-y="-0.80374389"
+       transform="matrix(0.1428251,0,0,0.14279017,130.14611,393.8405)"
+       inkscape:export-filename="/home/alex/Desktop/boom.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:transform-center-y="-0.64126654"
+       inkscape:transform-center-x="-0.33245637"
+       d="m 308.50897,425.87247 -33.49417,-35.75977 -11.72832,47.5717 -11.12692,-47.71595 -33.94287,35.33415 14.22178,-46.88669 -47.06247,13.62883 35.75977,-33.49417 -47.5717,-11.72832 47.71595,-11.12692 -35.33414,-33.94288 46.88669,14.22179 -13.62883,-47.06247 33.49417,35.75977 11.72832,-47.5717 11.12692,47.71595 33.94287,-35.33414 -14.22178,46.88668 47.06246,-13.62883 -35.75977,33.49417 47.57171,11.72832 -47.71596,11.12692 35.33415,33.94288 L 294.88014,378.81 z"
+       inkscape:randomized="0"
+       inkscape:rounded="-1.0408341e-17"
+       inkscape:flatsided="false"
+       sodipodi:arg2="1.3153083"
+       sodipodi:arg1="1.0535089"
+       sodipodi:r2="44.153809"
+       sodipodi:r1="90.294083"
+       sodipodi:cy="347.39212"
+       sodipodi:cx="263.85635"
+       sodipodi:sides="12"
+       id="path3755"
+       style="fill:#f8ff00;fill-opacity:1;fill-rule:nonzero;stroke:#ccc9c9;stroke-width:0.1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3781)"
+       sodipodi:type="star"
+       transform="matrix(0.10753343,0,0,0.11392537,139.55467,403.7713)"
+       inkscape:export-filename="/home/alex/Desktop/boom.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>
