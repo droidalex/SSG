@@ -478,7 +478,6 @@ stars.forEach(resetStars);
 		if (s.y >= FlxG.height)
 		{			
 			s.reset(FlxRandom.intRanged(0,FlxG.width),FlxRandom.intRanged(0,FlxG.height));
-			//trace("ouch!");
 			
 		}
 		
