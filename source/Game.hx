@@ -141,6 +141,8 @@ class Game extends FlxState
 		if (lives==0)
 		{
 			FlxG.resetState();
+			FlxG.sound.destroy(true);
+
 			
 		}
 		
