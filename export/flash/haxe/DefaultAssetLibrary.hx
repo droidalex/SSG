@@ -48,6 +48,30 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/svg/boom.svg", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/ssg.png", __ASSET__assets_ssg_png);
 		type.set ("assets/ssg.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/sounds/SSG.ogg", __ASSET__assets_sounds_ssg_ogg);
+		type.set ("assets/sounds/SSG.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("assets/sounds/explode.mp3", __ASSET__assets_sounds_explode_mp3);
+		type.set ("assets/sounds/explode.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("assets/sounds/SSG.mp3", __ASSET__assets_sounds_ssg_mp3);
+		type.set ("assets/sounds/SSG.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("assets/sounds/shoot.mp3", __ASSET__assets_sounds_shoot_mp3);
+		type.set ("assets/sounds/shoot.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("assets/sounds/shoot.ogg", __ASSET__assets_sounds_shoot_ogg);
+		type.set ("assets/sounds/shoot.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("assets/sounds/zap.mp3", __ASSET__assets_sounds_zap_mp3);
+		type.set ("assets/sounds/zap.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("assets/sounds/explode.ogg", __ASSET__assets_sounds_explode_ogg);
+		type.set ("assets/sounds/explode.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("assets/sounds/zap.ogg", __ASSET__assets_sounds_zap_ogg);
+		type.set ("assets/sounds/zap.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		className.set ("SSG", __ASSET__assets_sounds_ssg_mp4);
+		type.set ("SSG", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("shoot", __ASSET__assets_sounds_shoot_mp4);
+		type.set ("shoot", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("explode", __ASSET__assets_sounds_explode_mp4);
+		type.set ("explode", Reflect.field (AssetType, "music".toUpperCase ()));
+		className.set ("zap", __ASSET__assets_sounds_zap_mp4);
+		type.set ("zap", Reflect.field (AssetType, "music".toUpperCase ()));
 		className.set ("assets/sounds/flixel.mp3", __ASSET__assets_sounds_flixel_mp3);
 		type.set ("assets/sounds/flixel.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
 		className.set ("assets/sounds/beep.mp3", __ASSET__assets_sounds_beep_mp3);
@@ -62,6 +86,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		addExternal("assets/svg/SSG.svg", "text", "assets/svg/SSG.svg");
 		addExternal("assets/svg/boom.svg", "text", "assets/svg/boom.svg");
 		addExternal("assets/ssg.png", "image", "assets/ssg.png");
+		addExternal("assets/sounds/SSG.ogg", "sound", "assets/sounds/SSG.ogg");
+		addExternal("assets/sounds/explode.mp3", "music", "assets/sounds/explode.mp3");
+		addExternal("assets/sounds/SSG.mp3", "music", "assets/sounds/SSG.mp3");
+		addExternal("assets/sounds/shoot.mp3", "music", "assets/sounds/shoot.mp3");
+		addExternal("assets/sounds/shoot.ogg", "sound", "assets/sounds/shoot.ogg");
+		addExternal("assets/sounds/zap.mp3", "music", "assets/sounds/zap.mp3");
+		addExternal("assets/sounds/explode.ogg", "sound", "assets/sounds/explode.ogg");
+		addExternal("assets/sounds/zap.ogg", "sound", "assets/sounds/zap.ogg");
+		addExternal("SSG", "music", "assets/sounds/SSG.mp3");
+		addExternal("shoot", "music", "assets/sounds/shoot.mp3");
+		addExternal("explode", "music", "assets/sounds/explode.mp3");
+		addExternal("zap", "music", "assets/sounds/zap.mp3");
 		addExternal("assets/sounds/flixel.mp3", "music", "assets/sounds/flixel.mp3");
 		addExternal("assets/sounds/beep.mp3", "music", "assets/sounds/beep.mp3");
 		
@@ -89,6 +125,42 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/ssg.png", __ASSET__assets_ssg_png);
 		type.set ("assets/ssg.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		
+		className.set ("assets/sounds/SSG.ogg", __ASSET__assets_sounds_ssg_ogg);
+		type.set ("assets/sounds/SSG.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		
+		className.set ("assets/sounds/explode.mp3", __ASSET__assets_sounds_explode_mp3);
+		type.set ("assets/sounds/explode.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("assets/sounds/SSG.mp3", __ASSET__assets_sounds_ssg_mp3);
+		type.set ("assets/sounds/SSG.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("assets/sounds/shoot.mp3", __ASSET__assets_sounds_shoot_mp3);
+		type.set ("assets/sounds/shoot.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("assets/sounds/shoot.ogg", __ASSET__assets_sounds_shoot_ogg);
+		type.set ("assets/sounds/shoot.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		
+		className.set ("assets/sounds/zap.mp3", __ASSET__assets_sounds_zap_mp3);
+		type.set ("assets/sounds/zap.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("assets/sounds/explode.ogg", __ASSET__assets_sounds_explode_ogg);
+		type.set ("assets/sounds/explode.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		
+		className.set ("assets/sounds/zap.ogg", __ASSET__assets_sounds_zap_ogg);
+		type.set ("assets/sounds/zap.ogg", Reflect.field (AssetType, "sound".toUpperCase ()));
+		
+		className.set ("SSG", __ASSET__assets_sounds_ssg_mp4);
+		type.set ("SSG", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("shoot", __ASSET__assets_sounds_shoot_mp4);
+		type.set ("shoot", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("explode", __ASSET__assets_sounds_explode_mp4);
+		type.set ("explode", Reflect.field (AssetType, "music".toUpperCase ()));
+		
+		className.set ("zap", __ASSET__assets_sounds_zap_mp4);
+		type.set ("zap", Reflect.field (AssetType, "music".toUpperCase ()));
 		
 		className.set ("assets/sounds/flixel.mp3", __ASSET__assets_sounds_flixel_mp3);
 		type.set ("assets/sounds/flixel.mp3", Reflect.field (AssetType, "music".toUpperCase ()));
@@ -684,11 +756,35 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_svg_ssg_svg extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_svg_boom_svg extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_ssg_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_sounds_ssg_ogg extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_explode_mp3 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_ssg_mp3 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_shoot_mp3 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_shoot_ogg extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_zap_mp3 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_explode_ogg extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_zap_ogg extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_ssg_mp4 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_shoot_mp4 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_explode_mp4 extends flash.media.Sound { }
+@:keep class __ASSET__assets_sounds_zap_mp4 extends flash.media.Sound { }
 @:keep class __ASSET__assets_sounds_flixel_mp3 extends flash.media.Sound { }
 @:keep class __ASSET__assets_sounds_beep_mp3 extends flash.media.Sound { }
 
 
 #elseif html5
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -709,6 +805,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/svg/SSG.svg") class __ASSET__assets_svg_ssg_svg extends flash.utils.ByteArray {}
 @:file("assets/svg/boom.svg") class __ASSET__assets_svg_boom_svg extends flash.utils.ByteArray {}
 @:bitmap("assets/ssg.png") class __ASSET__assets_ssg_png extends flash.display.BitmapData {}
+@:sound("assets/sounds/SSG.ogg") class __ASSET__assets_sounds_ssg_ogg extends flash.media.Sound {}
+@:sound("assets/sounds/explode.mp3") class __ASSET__assets_sounds_explode_mp3 extends flash.media.Sound {}
+@:sound("assets/sounds/SSG.mp3") class __ASSET__assets_sounds_ssg_mp3 extends flash.media.Sound {}
+@:sound("assets/sounds/shoot.mp3") class __ASSET__assets_sounds_shoot_mp3 extends flash.media.Sound {}
+@:sound("assets/sounds/shoot.ogg") class __ASSET__assets_sounds_shoot_ogg extends flash.media.Sound {}
+@:sound("assets/sounds/zap.mp3") class __ASSET__assets_sounds_zap_mp3 extends flash.media.Sound {}
+@:sound("assets/sounds/explode.ogg") class __ASSET__assets_sounds_explode_ogg extends flash.media.Sound {}
+@:sound("assets/sounds/zap.ogg") class __ASSET__assets_sounds_zap_ogg extends flash.media.Sound {}
+@:sound("assets/sounds/SSG.mp3") class __ASSET__assets_sounds_ssg_mp4 extends flash.media.Sound {}
+@:sound("assets/sounds/shoot.mp3") class __ASSET__assets_sounds_shoot_mp4 extends flash.media.Sound {}
+@:sound("assets/sounds/explode.mp3") class __ASSET__assets_sounds_explode_mp4 extends flash.media.Sound {}
+@:sound("assets/sounds/zap.mp3") class __ASSET__assets_sounds_zap_mp4 extends flash.media.Sound {}
 @:sound("/usr/lib/haxe/lib/flixel/3,3,3/assets/sounds/flixel.mp3") class __ASSET__assets_sounds_flixel_mp3 extends flash.media.Sound {}
 @:sound("/usr/lib/haxe/lib/flixel/3,3,3/assets/sounds/beep.mp3") class __ASSET__assets_sounds_beep_mp3 extends flash.media.Sound {}
 

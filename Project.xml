@@ -31,9 +31,26 @@
 	<classpath name="source" />
 	<assets path="assets" />
 	
+		<assets path="assets/sounds" if="flash">
+
+		<music path="SSG.mp3" id="SSG" />	
+		<music path="shoot.mp3" id="shoot" />	
+		<music path="explode.mp3" id="explode" />	
+		<music path="zap.mp3" id="zap" />	
+	</assets>	
+	
+	<assets path="assets/sounds" unless="flash">
+
+		<sound path="SSG.ogg" id="SSG" />	
+		<sound path="shoot.ogg" id="shoot" />	
+		<sound path="explode.ogg" id="explode" />	
+		<sound path="zap.ogg" id="zap" />	
+	</assets>	
+		
 	<!--------------------------------LIBRARIES------------------------------------->
 
 	<haxelib name="flixel"/>
+	<haxelib name="flixel-addons"/>
 	
 	<!--In case you want to use the addons package-->
 	<!--haxelib name="flixel-addons" /-->

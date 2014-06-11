@@ -64,5 +64,16 @@ class Main extends Sprite
 		}
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		
+		#if android
+			FlxG.sound.cache("SSG");
+			FlxG.sound.cache("shoot");
+			FlxG.sound.cache("explode");
+			FlxG.sound.cache("zap");
+		#end
+	
+		
+		
+		
 	}
 }

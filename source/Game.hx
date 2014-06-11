@@ -10,6 +10,9 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxRandom;
+import flixel.addons.display.FlxStarField;
+import flixel.addons.weapon.FlxBullet;
+import flixel.addons.weapon.FlxWeapon;
 
 /* 
  * This is a "silly space game". 
@@ -32,7 +35,10 @@ class Game extends FlxState
 	private var enemy:FlxSprite; 
 	private var player:FlxSprite;
 	private var boom:FlxSprite;
+	
 	private var fire:FlxSprite; 
+	private var w:FlxWeapon;
+	
 	private var tiro:FlxSprite;
 	private var enemies:FlxSpriteGroup;
 	private var tiros:FlxSpriteGroup;
@@ -55,29 +61,22 @@ class Game extends FlxState
 	private var ptimer:Float = 0;
 	private var newStage:Bool = false;
 	private var reset:Bool = false;
+	private var musicOk:Bool = true;
 	private var explosion:Bool = false;
 	private var veloc:Int=1;
 	
-	private var stars:FlxSpriteGroup;
-	private var star:FlxSprite;
+	private var stars:FlxStarField2D;
+	
 	
 	override public function create():Void
 	{		
-			
 		super.create();
 		
-		stars = new FlxSpriteGroup();
-		for (f in 0...50)
-		{
-			star = new FlxSprite(FlxRandom.intRanged(0,FlxG.width),FlxRandom.intRanged(0,FlxG.height));
-			star.makeGraphic(2,2,FlxColor.WHITE);
-			stars.velocity.y=100;
-			stars.add(star);
-					
-		}
+		stars = new FlxStarField2D(70,-30,FlxG.height,FlxG.width,50);
+		stars.angle=-90;
 		add(stars);
 		
-		
+		FlxG.mouse.visible = false;
 		
 		//Creating text score
 		SPscore = new FlxText(10,10);
@@ -102,6 +101,8 @@ class Game extends FlxState
 		drawEnemies();
 		drawTitle();
 		
+	
+				
 	}
 	
 	
@@ -117,7 +118,6 @@ class Game extends FlxState
 	
 	override public function update():Void
 	{
-stars.forEach(resetStars);
 				
 		if (reset)
 		{
@@ -144,7 +144,7 @@ stars.forEach(resetStars);
 			
 		}
 		
-		if (FlxG.mouse.justPressed || newStage==true)
+		if (FlxG.keys.anyPressed(["SPACE","CONTROL","Z"]) && GameOver || newStage==true)
 		{
 			// Reset the enemies position
 			enemies.kill();
@@ -152,6 +152,11 @@ stars.forEach(resetStars);
 			// Titles Get lost! 
 			gameTitle.kill();
 			gameSubTitle1.kill();
+			if (musicOk)
+			{
+				FlxG.sound.playMusic("SSG");
+				musicOk=false;
+			}
 			
 			//Adding player	
 			if (GameOver)
@@ -170,8 +175,7 @@ stars.forEach(resetStars);
 		}
 		else //Start the game stuff
 		{
-		
-		
+					
 		// Updating score+hiscore+lives everytime
 		SPscore.text="SCORE: "+score;
 		//SPhiscore.text="HI-SCORE: "+hiscore;
@@ -230,7 +234,7 @@ stars.forEach(resetStars);
 		else if (FlxG.keys.anyJustReleased(["SPACE","CONTROL","Z"])&&!GameOver && !explosion)
 		{
 			// If the fire is out of screen you can shot again
-			if (!fire.isOnScreen())
+			if (fired && !fire.isOnScreen())
 			{
 				fire.kill();
 				fired=false;
@@ -308,16 +312,20 @@ stars.forEach(resetStars);
 	public function PlayerFire():Void
 	{
 		// Avoiding countless fire shoots
+		
 		if (!fired)
 		{
-			fire = new FlxSprite((player.x + player.width/2) - 2, player.y-64);
+		
+			FlxG.sound.play("shoot");
+			fire = new FlxSprite((player.x + player.width/2) - 2, player.y+20);
 			fire.makeGraphic(4,10,FlxColor.YELLOW);
 			fire.velocity.y=-3000;
 			add(fire);
 			fired=true;
 		}
-		
-		 
+	
+						
+
 	}
 	
 	public function enemyHit(enemy:FlxSprite){
@@ -330,7 +338,7 @@ stars.forEach(resetStars);
 	
 	public function dieEnemy(e:FlxSprite, fire:FlxSprite)
 	{
-		
+		FlxG.sound.play("zap");
 		e.kill();
 		score+=10;
 		
@@ -398,8 +406,8 @@ stars.forEach(resetStars);
 	gameTitle.antialiasing=true;
 	add(gameTitle);	
 	
-	gameSubTitle1 = new FlxText(FlxG.width/2 -250 , FlxG.height/2+100);
-	gameSubTitle1.text="(MOUSE CLICK TO START)";
+	gameSubTitle1 = new FlxText(FlxG.width/2 -180 , FlxG.height/2+100);
+	gameSubTitle1.text="(Silly Space Game)";
 	gameSubTitle1.color=FlxColor.WHITE;
 	gameSubTitle1.borderStyle=1;
 	gameSubTitle1.borderColor=FlxColor.RED;
@@ -451,6 +459,7 @@ stars.forEach(resetStars);
 
 	public function Boom(tiro:FlxSprite,player:FlxSprite):Void
 	{
+		FlxG.sound.play("explode");
 		explosion=true;
 		boom = new FlxSprite(player.x,player.y);
 		boom.loadGraphic("assets/boom.png",true,32,32,false);
@@ -472,20 +481,12 @@ stars.forEach(resetStars);
 		}
 	}
 	
-	public function resetStars(s:FlxSprite)
-	{
-		
-		if (s.y >= FlxG.height)
-		{			
-			s.reset(FlxRandom.intRanged(0,FlxG.width),FlxRandom.intRanged(0,FlxG.height));
-			
-		}
-		
-	}
+
 	
 	public function enemyCollide(e:FlxSprite)
 	{
 		FlxG.collide(e, player, Boom);
 	}
+
 	
 }
