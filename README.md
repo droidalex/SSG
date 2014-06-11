@@ -11,14 +11,3 @@ I never used GitHub, so enjoy this mess! ( :
 
 
 The Game: http://droidalex.github.io/SSG/
-
-Things can be done in this or your own Game:
-
-- Improve the code.
-- More enemies especies
-- Bonus stage every 'n' stages.
-- More guns
-- Boss stages
-- Cool effects & explosions
-- Create Enemies.hx & Player.hx extending FlxSprite classes.
-- etc.
