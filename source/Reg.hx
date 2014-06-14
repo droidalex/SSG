@@ -19,6 +19,10 @@ class Reg
 	 * Example usage: Storing the current level number.
 	 */
 	public static var level:Int = 0;
+	
+	public static var title:Bool = true;
+	
+	public static var dontRepeat:Bool = false;
 	/**
 	 * Generic scores Array that can be used for cross-state stuff.
 	 * Example usage: Storing the scores for level.

@@ -37,6 +37,7 @@
 		<music path="shoot.mp3" id="shoot" />	
 		<music path="explode.mp3" id="explode" />	
 		<music path="zap.mp3" id="zap" />	
+		<music path="logo.mp3" id="logo" />	
 	</assets>	
 	
 	<assets path="assets/sounds" unless="flash">
@@ -45,6 +46,7 @@
 		<sound path="shoot.ogg" id="shoot" />	
 		<sound path="explode.ogg" id="explode" />	
 		<sound path="zap.ogg" id="zap" />	
+		<sound path="logo.ogg" id="logo" />	
 	</assets>	
 		
 	<!--------------------------------LIBRARIES------------------------------------->

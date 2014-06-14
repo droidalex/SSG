@@ -3,294 +3,268 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxObject;
-import flixel.group.FlxSpriteGroup;
 import flixel.FlxState;
+import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
-import flixel.util.FlxColor;
-import flixel.util.FlxRandom;
 import flixel.addons.display.FlxStarField;
+import enemies.Enemy;
+import flixel.system.FlxSound;
+import flixel.addons.plugin.control.FlxControl;
+import flixel.addons.plugin.control.FlxControlHandler;
 import flixel.addons.weapon.FlxBullet;
 import flixel.addons.weapon.FlxWeapon;
-
-/* 
- * This is a "silly space game". 
- * The main purpose of this is to make
- * a simplest haxeflixel example
- * to put in my blog, and then people
- * will see how easy is to create a game
- * with haxeflixel. 
- *  
- * It's not a serious project. 
- * It is a game! (^_^)//
- * 
- * It's 2:40 a.m. LOL!
- *
- */ 
- 
+import flixel.util.FlxColor;
+import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup;
 
 class Game extends FlxState
 {
-	private var enemy:FlxSprite; 
-	private var player:FlxSprite;
-	private var boom:FlxSprite;
-	
-	private var fire:FlxSprite; 
-	private var w:FlxWeapon;
-	
-	private var tiro:FlxSprite;
-	private var enemies:FlxSpriteGroup;
-	private var tiros:FlxSpriteGroup;
-	private var tempo:Float=0;
-	private var fired:Bool = false;
+	private var player:Ship;
+	private var chao:FlxSprite;
+	private var stars:FlxStarField2D;
 	private var SPscore:FlxText;
 	private var score:Int=0;
+	private var level:Int = Reg.level;
 	private var SPhiscore:FlxText;
 	private var hiscore:Int=0;
 	private var SPlives:FlxText;
-	private var lives:Int=4;
-	private var ncolor:Int;
-	private var GameOver:Bool = true;
-	private var gameTitle:FlxText;
-	private var levelMsg:FlxText;
-	private var gameSubTitle1:FlxText;
-	private var level:Int = 1;
-	private var passed:Bool = true;
-	private var breath:Float = 0;
+	private var lives:Int=1;
+	private var enemy:Enemy;
+	private var soundShoot:FlxSound;
+	private var musica:FlxSound;
+	private var laser:FlxWeapon;
+	private var tempo:Float=0;
+	private var tiro:FlxSprite;
+	private var tiros:FlxSpriteGroup;
+	private var enemy_wait:Bool = true;
+	private var enemy_time:Float = 0;
+	private var boom:FlxSprite;
+	private var player_die:Bool = false;
 	private var ptimer:Float = 0;
-	private var newStage:Bool = false;
-	private var reset:Bool = false;
-	private var musicOk:Bool = true;
-	private var explosion:Bool = false;
-	private var veloc:Int=1;
-	
-	private var stars:FlxStarField2D;
-	
-	
-	override public function create():Void
-	{		
-		super.create();
+	private var msg:Message;
 		
-		stars = new FlxStarField2D(70,-30,FlxG.height,FlxG.width,50);
+	override public function create():Void
+	{	
+
+		msg = new Message();
+		openSubState(msg);
+		//Creating stars	
+		stars = new FlxStarField2D(80,-80,FlxG.height,FlxG.width,50);
 		stars.angle=-90;
 		add(stars);
 		
+		soundShoot = new FlxSound();
+		soundShoot.loadEmbedded("shoot",false,false);
+		
+		musica = new FlxSound();
+		musica.loadEmbedded("SSG",true);
+		
+		//Hidding mouse cursor
 		FlxG.mouse.visible = false;
 		
 		//Creating text score
 		SPscore = new FlxText(10,10);
-		SPscore.text="SCORE: 0";
+		SPscore.borderStyle=1;
+		SPscore.borderColor=FlxColor.RED;
+		SPscore.borderSize=5;
+		SPscore.text="SCORE: "+Reg.score;
+		SPscore.color=FlxColor.YELLOW;
 		SPscore.size=20;
 		add(SPscore);
 		
 		//Creating text hi-score
 		SPhiscore = new FlxText(250,10);
 		SPhiscore.text="HI-SCORE: "+Reg.hiscore;
+		SPhiscore.borderStyle=1;
+		SPhiscore.color=FlxColor.YELLOW;
+		SPhiscore.borderColor=FlxColor.RED;
+		SPhiscore.borderSize=5;
 		SPhiscore.size=20;
 		add(SPhiscore);
 		
 		//Creating text lives
 		SPlives = new FlxText(530,10);
 		SPlives.text="LIVES: "+lives;
+		SPlives.borderStyle=1;
+		SPlives.color=FlxColor.YELLOW;
+		SPlives.borderColor=FlxColor.RED;
+		SPlives.borderSize=5;
 		SPlives.size=20;
 		add(SPlives);
+		//Creating player
+		player = new Ship(FlxG.width/2-16,FlxG.height-64,this);
+		add(player);
+		//Creating enemy
 			
-		tiros = new FlxSpriteGroup();
-		add(tiros);
-		drawEnemies();
-		drawTitle();
+		createEnemy();	
 		
-	
-				
+		//Creating player shoots
+		laser = new FlxWeapon("laser", player, FlxBullet, 1);
+		laser.makeImageBullet(10, "assets/p_shoot.png", 12,0,false,0,0,true,true);
+		laser.setBulletDirection(FlxWeapon.BULLET_UP, 200);
+		laser.setBulletSpeed(1000);
+		
+		//Creating player controls
+		FlxControl.create(player, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, true, false);
+		FlxControl.player1.setCursorControl(false, false, true, true);
+		FlxControl.player1.setMovementSpeed(600, 0, 300, 0, 400, 0);
+		FlxControl.player1.setFireButton("CONTROL", FlxControlHandler.KEYMODE_PRESSED, 250, laser.fire);
+		FlxControl.player1.setSounds(null,soundShoot,null,null);// <--------------------------Sounds:Jump,Fire,Walk,Thrust
+		
+		//Add player shoots to game
+		add(laser.group);
+		
+		//Enabling plugin FlxControl
+		if (FlxG.plugins.get(FlxControl) == null)
+		{
+			FlxG.plugins.add(new FlxControl());
+		}
+		super.create();
 	}
 	
-	
-	
+
 	override public function destroy():Void
 	{
 		super.destroy();
-		enemies=null;
-		enemy=null;
-		player=null;
 	}
 
-	
+
 	override public function update():Void
 	{
-				
-		if (reset)
+		
+		if (!Reg.title)
+		{
+			musica.play();
+			Reg.title=true;
+			
+		}
+	
+		
+		
+		if (player.x <= 0)
+		{
+			player.x=FlxG.width-32;
+		}
+		else if (player.x >= FlxG.width)
+		{		
+			player.x=0;
+		}
+		// Updating score+hiscore+lives everytime
+		SPscore.text="SCORE: "+Reg.score;
+		SPhiscore.text="HI-SCORE: "+Reg.hiscore;
+		//SPhiscore.text="HI-SCORE: "+hiscore;
+		SPlives.text="LIVES: "+lives;
+		
+		if (enemy.countLiving()==0 && !Reg.dontRepeat)
+		{
+			soundShoot.kill();
+			msg = new Message("new level");
+			openSubState(msg);
+			laser.group.kill();			
+		}
+		else if (enemy.countLiving()==0 && Reg.dontRepeat)
+		{
+			createEnemy();
+			enemy.velocity.y+=5;
+			Reg.dontRepeat=false;
+			laser.group.revive();
+			soundShoot.revive();
+		}
+		
+		if (lives < 0 && !Reg.dontRepeat)
+		{		
+			musica.kill();
+			soundShoot.kill();
+			msg = new Message("game over");
+			if (Reg.score>Reg.hiscore)
+			{
+				Reg.hiscore = Reg.score;
+			}
+			openSubState(msg);
+			enemy.kill();
+			createEnemy();
+		}
+		else if (lives < 0 && Reg.dontRepeat)
+		{
+			lives=4;
+			Reg.level=0;
+			Reg.score=0;
+			Reg.dontRepeat=false;
+			msg = new Message();
+			openSubState(msg);
+			soundShoot.revive();
+			Reg.title=false;
+			musica.revive();
+
+		}
+		
+		
+		/* If player die: 
+		 * wait,
+		 * decrease life,
+		 * clear explosion
+		 * and reset position 
+		 */
+		if (player_die)
 		{
 			
 			ptimer -= FlxG.elapsed;
+			tiros.kill();
 			
 			if (ptimer < -2)
 			{
 				ptimer=0;
 				lives--;		
-				reset=false;
+				player_die=false;
 				boom.kill();
-				explosion=false;
 				player.reset(FlxG.width/2-16,FlxG.height-64);
-				
+				laser.group.revive();
+				tiros.revive();
+				soundShoot.revive();
+
 			}
 			
 			
 		}
 		
-		if (lives==0)
+		/*
+		 * This part is to 
+		 * avoid enemy
+		 * shoot without
+		 * player being prepared.
+		 * Wait or Shoot.
+		 */
+		if (enemy_wait)
 		{
-			FlxG.resetState();
-			FlxG.sound.destroy(true);
-
-			
-		}
-		
-		if (FlxG.keys.anyPressed(["SPACE","CONTROL","Z"]) && GameOver || newStage==true)
-		{
-			// Reset the enemies position
-			enemies.kill();
-			drawEnemies();
-			// Titles Get lost! 
-			gameTitle.kill();
-			gameSubTitle1.kill();
-			if (musicOk)
+			enemy_time -= FlxG.elapsed;
+			if (enemy_time <= -3)
 			{
-				FlxG.sound.playMusic("SSG");
-				musicOk=false;
-			}
-			
-			//Adding player	
-			if (GameOver)
-			{		
-				player = new FlxSprite(FlxG.width/2-16,FlxG.height-64);
-				player.loadGraphic("assets/ssg.png",true,32,32,false);
-				player.animation.add("normal",[0,1,2,3,4],30,true);
-				player.animation.play("normal");
-				add(player);
-			}
-			//Flags
-			GameOver=false;
-			newStage=false;
+				//enemy.forEach(shoot);
+				enemy_wait=false; 
+				enemy_time=0;
 				
-			
-		}
-		else //Start the game stuff
-		{
-					
-		// Updating score+hiscore+lives everytime
-		SPscore.text="SCORE: "+score;
-		//SPhiscore.text="HI-SCORE: "+hiscore;
-		SPlives.text="LIVES: "+lives;
-
-		// If all enemies are killed
-		if (enemies.countLiving()==0 && passed)
-		{
-			//Show message
-			drawLevelMsg();
-			//This is a flag to avoid the level counter update.  
-			passed=false;
-			//Update level
-			level++;	
-
-		} 
-		else if (enemies.countLiving()==0 && !passed)
-		{
-			// If the message was displayed as weel wait...
-			gimmeTime();	
+			}	
 					
 		}
-		
-		// If the score are greater then new hi-score
-		if (score > hiscore)
+		else
 		{
-			Reg.hiscore=score;
+			enemy.forEach(shoot);
+
 		}
-		
-		// ---------------------------------------- player keys ----------------- 
-		if (FlxG.keys.anyPressed(["A","LEFT"])&&!GameOver)
-		{
-			// if the player get out of the screen show player in the other side.
-			if (player.x < 0)
-			{
-				player.reset(FlxG.width-32,FlxG.height-64);
-			}
-			player.velocity.x=-300;
-		}
-		else if (FlxG.keys.anyPressed(["D","RIGHT"])&&!GameOver)
-		{
-			//same above
-			if (player.x > FlxG.width)
-			{		
-				player.reset(0,FlxG.height-64);
-			}
-			player.velocity.x=300;
-		}
-		
-		if (FlxG.keys.anyPressed(["SPACE","CONTROL","Z"])&&!GameOver && !explosion)
-		{
-		
-			PlayerFire();
 			
-		}
-		else if (FlxG.keys.anyJustReleased(["SPACE","CONTROL","Z"])&&!GameOver && !explosion)
-		{
-			// If the fire is out of screen you can shot again
-			if (fired && !fire.isOnScreen())
-			{
-				fire.kill();
-				fired=false;
-			}
-			
-		}
+		// FlxG.collide(enemy, laser.group, dieEnemy); <-- This don't work in Flash
+		// so I had to force a little bit:
+		laser.group.forEach(collideLaser);
 		
-		
-		if (FlxG.keys.anyJustReleased(["A","D","LEFT","RIGHT"])&&!GameOver)
-		{
-			
-			player.velocity.x=0;
-						
-		}
-		//---------------------------------End player keys-------
-		
-				
-		//Make each enemy do a "ping pong" in the walls
-		enemies.forEach(zigzag);
-		
-	
-		//And make them shoot every time
-		enemies.forEach(shoot);
-	
-		
-		
-		//---------------------------collisions
-		
-		enemies.forEach(enemyHit);
-		enemies.forEach(enemyCollide);
-		tiros.forEach(destroyTiro);
+		//Collision between Enemy shoots (tiros) and player, calling function "Boom". 
 		FlxG.collide(tiros, player, Boom);
-
+		FlxG.collide(enemy, player, Boom);
+		
 		super.update();
-		
 	}
-	}	
-	
-	public function zigzag(e:FlxSprite):Void
-	{
-		// If position of enemy is greater then screen (minus his width) 
-		// or he will get out of screen or smaller than zero. Change direction. Else if
-		// this bad guy reached the bottom of screen, reappear in top. 
-		if (e.x>=FlxG.width-50 || e.x<0)
-		{
-			e.velocity.x=-e.velocity.x;
-		}
-		else if (e.y > FlxG.height+50)
-		{
-			e.y=-60;
-		
-		}
-		
-	}
+
 	
 	// Shoot every 1 elapsed time, every enemy.
 	public function shoot(e:FlxSprite):Void
@@ -304,191 +278,63 @@ class Game extends FlxState
 			tiro.makeGraphic(3,6,FlxColor.RED);
 			tiro.velocity.y=500;
 			tiros.add(tiro);
-			// After shoot, reload the time (reseting to 0)
+			// After shoot, reload (reseting to 0)
 			tempo=0;
 		}
 			
 		
 	}
 	
-	public function PlayerFire():Void
-	{
-		// Avoiding countless fire shoots
-		
-		if (!fired)
-		{
-		
-			FlxG.sound.play("shoot");
-			fire = new FlxSprite((player.x + player.width/2) - 2, player.y+20);
-			fire.makeGraphic(4,10,FlxColor.YELLOW);
-			fire.velocity.y=-3000;
-			add(fire);
-			fired=true;
-		}
-	
-						
+	//----- Player's death function
+	public function Boom(tiro:FlxSprite,player:FlxSprite):Void
+	{		
+		soundShoot.kill();
 
+		FlxG.sound.play("explode");
+		boom = new FlxSprite(player.x,player.y);
+		boom.loadGraphic("assets/boom.png",true,32,32,false);
+		add(boom);
+		
+		// Nice rotating effect to explosion.
+		boom.angularVelocity=300;
+		
+		//Clearing enemy and... 
+		player.kill();
+		
+		//...avoiding "ghost shoots" comming from explosion.
+		laser.group.kill();
+		
+		//Flag to clear explosion
+		player_die=true;
+		
+		
+		//Flag to make enemy wait
+		enemy_wait=true;
+		
 	}
 	
-	public function enemyHit(enemy:FlxSprite){
-		
-		
-		FlxG.collide(enemy, fire, dieEnemy);
-		
-		
-	} 
-	
+	//---- Enemy's death function
 	public function dieEnemy(e:FlxSprite, fire:FlxSprite)
 	{
 		FlxG.sound.play("zap");
 		e.kill();
-		score+=10;
+		Reg.score+=10;
 		
 	}
 	
-	public function drawEnemies():Void
+	//---- this to collision work in flash for every enemy. 
+	public function collideLaser(l:FlxSprite):Void
+	{		
+		FlxG.overlap(enemy,l,dieEnemy);
+	}
+	
+	public function createEnemy():Void
 	{
-				// Put all enemies in a "sack".
-		enemies = new FlxSpriteGroup(0,0);
-
-		// creating 5 bad guys
-		for (i in 0...5) 
-		{	
-	
-			ncolor = FlxRandom.color(0,255);
-			// Put enemies in the middle side by side		
-			enemy = new FlxSprite(FlxG.width/4+80*i+15,10).loadGraphic("assets/enemies.png",false,32,32,false);
-			// Every enemy have his "frame" in spritesheet 
-			enemy.animation.add("A"+i,[i],1,false);
-			enemy.animation.play("A"+i);
-			enemy.maxVelocity.y=800;
-			enemy.antialiasing=true;
-			
-			// Left or right?
-			var sorteio:Int = FlxRandom.intRanged(1,2);
-		
-			var numb;
-		
-			// If 1 go right. Else go left.
-			if (sorteio==1)
-			{
-				numb=200;
-			}
-			else
-			{
-				numb=-200;
-			}
-			enemy.velocity.x=numb;
-			
-		
-			// Enemies should go to the bottom of screen pretty slow...
-			enemy.velocity.y=veloc;
-			
-			//Put this born dude into enemies group.
-			enemies.add(enemy);
-			
-			
-		}
-		//...And put the whole group in stage(scene).
-		add (enemies);
-		
-		
+		enemy = new Enemy(this, player);
+		tiros = new FlxSpriteGroup();
+		add(tiros); // <-- tiros = Enemy shoots
+		add(enemy);
 		
 	}
-	
-	public function drawTitle():Void
-	{
-	gameTitle = new FlxText(FlxG.width/2 -200 , FlxG.height/2 -150);
-	gameTitle.text="SSG";
-	gameTitle.color=FlxColor.WHITE;
-	gameTitle.borderStyle=1;
-	gameTitle.borderColor=FlxColor.RED;
-	gameTitle.borderSize=5;
-	gameTitle.size=200;
-	gameTitle.antialiasing=true;
-	add(gameTitle);	
-	
-	gameSubTitle1 = new FlxText(FlxG.width/2 -180 , FlxG.height/2+100);
-	gameSubTitle1.text="(Silly Space Game)";
-	gameSubTitle1.color=FlxColor.WHITE;
-	gameSubTitle1.borderStyle=1;
-	gameSubTitle1.borderColor=FlxColor.RED;
-	gameSubTitle1.borderSize=5;
-	gameSubTitle1.size=30;
-	gameSubTitle1.antialiasing=true;
-	add(gameSubTitle1);	
-		
-	}
-	
-	public function drawLevelMsg():Void
-	{
-	levelMsg = new FlxText(FlxG.width/2 -200 , FlxG.height/2-20);
-	levelMsg.text="LEVEL "+level+" COMPLETE!";
-	levelMsg.color=FlxColor.WHITE;
-	levelMsg.borderStyle=1;
-	levelMsg.borderColor=FlxColor.RED;
-	levelMsg.borderSize=5;
-	levelMsg.size=30;
-	levelMsg.antialiasing=true;
-	add(levelMsg);	
-	veloc+=5;
-
-	
-	
-	}
-	
-	public function gimmeTime():Void
-	{
-		breath -= FlxG.elapsed;
-		
-		if (breath <= -5)
-		{
-			newStage = true;
-			drawEnemies();
-			levelMsg.kill();
-			passed=true;
-			breath=0;
-				
-		}
-		else
-		{
-			
-		}
-			
-			
-	}
-
-
-	public function Boom(tiro:FlxSprite,player:FlxSprite):Void
-	{
-		FlxG.sound.play("explode");
-		explosion=true;
-		boom = new FlxSprite(player.x,player.y);
-		boom.loadGraphic("assets/boom.png",true,32,32,false);
-		add(boom);
-		boom.angularVelocity=300;
-		player.kill();
-		
-		reset=true;
-		
-	}
-	
-
-	
-	public function destroyTiro(t:FlxSprite)
-	{
-		if (!t.isOnScreen())
-		{
-			t.kill();
-		}
-	}
-	
-
-	
-	public function enemyCollide(e:FlxSprite)
-	{
-		FlxG.collide(e, player, Boom);
-	}
-
 	
 }
