@@ -18,6 +18,7 @@ import flixel.addons.weapon.FlxWeapon;
 import flixel.util.FlxColor;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup;
+import flixel.util.FlxDestroyUtil;
 
 class Game extends FlxState
 {
@@ -30,7 +31,7 @@ class Game extends FlxState
 	private var SPhiscore:FlxText;
 	private var hiscore:Int=0;
 	private var SPlives:FlxText;
-	private var lives:Int=1;
+	private var lives:Int=4;
 	private var enemy:Enemy;
 	private var soundShoot:FlxSound;
 	private var musica:FlxSound;
@@ -47,7 +48,6 @@ class Game extends FlxState
 		
 	override public function create():Void
 	{	
-
 		msg = new Message();
 		openSubState(msg);
 		//Creating stars	
@@ -124,12 +124,6 @@ class Game extends FlxState
 		super.create();
 	}
 	
-
-	override public function destroy():Void
-	{
-		super.destroy();
-	}
-
 
 	override public function update():Void
 	{
@@ -335,6 +329,28 @@ class Game extends FlxState
 		add(tiros); // <-- tiros = Enemy shoots
 		add(enemy);
 		
+	}
+	
+	override public function destroy():Void
+	{
+		enemy = FlxDestroyUtil.destroy(enemy);
+		player = FlxDestroyUtil.destroy(player);
+		tiros = FlxDestroyUtil.destroy(tiros);
+		musica = FlxDestroyUtil.destroy(musica);
+		soundShoot = FlxDestroyUtil.destroy(soundShoot);
+		boom = FlxDestroyUtil.destroy(boom);
+		laser.group = FlxDestroyUtil.destroy(laser.group);
+		msg = FlxDestroyUtil.destroy(msg);
+		enemy=null;
+		player=null;
+		tiros=null;
+		musica=null;
+		soundShoot=null;
+		boom=null;
+		laser.group=null;
+		msg=null;
+				
+		super.destroy();
 	}
 	
 }
